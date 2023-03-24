@@ -1,15 +1,16 @@
 # platform_view_macos_example
 
-A new Flutter plugin project.
+Example for a simple macOS platform view.
+1. `cd example`
+2. `flutter run -d macos`
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+![snapshot](./20230324163855.jpg)
+![snapshot](./20230324163826.jpg)
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+>
+>Only basic functions are implemented, and translucency/rounded corners/scaling/rotation are not yet supported. The hierarchy of PlatformView and Flutter widget is also incorrect.
+
 
