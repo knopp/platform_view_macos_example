@@ -1,4 +1,3 @@
-
 import 'platform_view_macos_example_platform_interface.dart';
 
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class NSBox extends StatelessWidget {
   }
 }
 
-class DeformableNativeView extends StatelessWidget {
+class DeformableNativeView extends StatefulWidget {
   const DeformableNativeView(
       {required this.angle,
       required this.opacity,
@@ -43,21 +42,41 @@ class DeformableNativeView extends StatelessWidget {
   final double scale;
 
   @override
+  State<DeformableNativeView> createState() => _DeformableNativeViewState();
+}
+
+class _DeformableNativeViewState extends State<DeformableNativeView> {
+  final _childKey = GlobalKey();
+
+  @override
   Widget build(BuildContext context) {
+    Widget child = Container(
+      color: Colors.green,
+      child: Transform.rotate(
+        angle: 0.5, // Rotate child relative to clip rect
+        child: SizedBox(
+          key: _childKey,
+          height: 300,
+          width: 300,
+          child: const NSBox(),
+        ),
+      ),
+    );
+    if (widget.radius == 0) {
+      child = ClipRect(child: child);
+    } else {
+      child = ClipRRect(
+        borderRadius: BorderRadius.circular(widget.radius),
+        child: child,
+      );
+    }
     return Transform.rotate(
-      angle: angle,
+      angle: widget.angle,
       child: Transform.scale(
-        scale: scale,
+        scale: widget.scale,
         child: Opacity(
-          opacity: opacity,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: const SizedBox(
-              height: 300,
-              width: 300,
-              child: NSBox(),
-            ),
-          ),
+          opacity: widget.opacity,
+          child: child,
         ),
       ),
     );
